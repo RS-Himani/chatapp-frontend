@@ -20,11 +20,25 @@ import { userExists } from "../redux/reducers/auth";
 import { useDispatch } from "react-redux";
 import toast from "react-hot-toast";
 import { motion } from "framer-motion";
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import InputAdornment from '@mui/material/InputAdornment';
+import FormControl from '@mui/material/FormControl';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 const Login = () => {
 
    const [isLogin, setIsLogin] = useState(true);
    const [isLoading, setIsLoading] = useState(false);
+   const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
 
    const toggleLogin = () => setIsLogin((prev) => !prev);
 
@@ -61,10 +75,12 @@ const Login = () => {
         },
         config
       );
+    //console.log("Data : ", data)
       dispatch(userExists(data.user));
       toast.success(data.message, {
         id: toastId,
       });
+      //sessionStorage.setItem("userToken", JSON.stringify(data.token));
     } catch (error) {
       toast.error(error?.response?.data?.message || "Something Went Wrong", {
         id: toastId,
@@ -105,6 +121,7 @@ const Login = () => {
       toast.success(data.message, {
         id: toastId,
       });
+      //localStorage.setItem("userToken", JSON.stringify(data.token));
     } catch (error) {
       toast.error(error?.response?.data?.message || "Something Went Wrong", {
         id: toastId,
@@ -157,14 +174,41 @@ const Login = () => {
                                 <TextField 
                                     required
                                     fullWidth
-                                    label="username"
+                                    label="UserName"
                                     margin='normal'
                                     variant='outlined'
                                     value={username.value}
                                     onChange={username.changeHandler}
                                 />
 
-                                <TextField 
+                                <FormControl 
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                >
+                                    <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+                                    <OutlinedInput
+                                        id="outlined-adornment-password"
+                                        type={showPassword ? 'text' : 'password'}
+                                        endAdornment={
+                                        <InputAdornment position="end">
+                                            <IconButton
+                                            aria-label="toggle password visibility"
+                                            onClick={handleClickShowPassword}
+                                            onMouseDown={handleMouseDownPassword}
+                                            edge="end"
+                                            >
+                                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                                            </IconButton>
+                                        </InputAdornment>
+                                        }
+                                        label="Password"
+                                        value={password.value}
+                                        onChange={password.changeHandler}
+                                    />
+                                </FormControl>
+
+                                {/* <TextField 
                                     required
                                     fullWidth
                                     type='password'
@@ -173,7 +217,7 @@ const Login = () => {
                                     variant='outlined'
                                     value={password.value}
                                     onChange={password.changeHandler}
-                                />
+                                /> */}
 
                                 <Button
                                     sx={{
@@ -269,7 +313,7 @@ const Login = () => {
                                 <TextField 
                                     required
                                     fullWidth
-                                    label="username"
+                                    label="UserName"
                                     margin='normal'
                                     variant='outlined'
                                     value={username.value}
@@ -282,7 +326,34 @@ const Login = () => {
                                     </Typography>
                                 )}
 
-                                <TextField 
+                                <FormControl 
+                                    variant="outlined"
+                                    required
+                                    fullWidth
+                                >
+                                    <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+                                    <OutlinedInput
+                                        id="outlined-adornment-password"
+                                        type={showPassword ? 'text' : 'password'}
+                                        endAdornment={
+                                        <InputAdornment position="end">
+                                            <IconButton
+                                            aria-label="toggle password visibility"
+                                            onClick={handleClickShowPassword}
+                                            onMouseDown={handleMouseDownPassword}
+                                            edge="end"
+                                            >
+                                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                                            </IconButton>
+                                        </InputAdornment>
+                                        }
+                                        label="Password"
+                                        value={password.value}
+                                        onChange={password.changeHandler}
+                                    />
+                                </FormControl>
+
+                                {/* <TextField 
                                     required
                                     fullWidth
                                     type='password'
@@ -291,7 +362,7 @@ const Login = () => {
                                     variant='outlined'
                                     value={password.value}
                                     onChange={password.changeHandler}
-                                />
+                                /> */}
 
                                 {password.error && (
                                     <Typography color="error" variant='caption'>

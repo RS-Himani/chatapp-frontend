@@ -28,7 +28,7 @@ import { setIsFileMenu } from '../redux/reducers/misc';
 import FileMenu from '../components/dialogs/FileMenu';
 import { useNavigate } from 'react-router-dom';
 import { removeNewMessagesAlert } from '../redux/reducers/chat';
-import { TypingLoader } from '../components/layout/loaders';
+import { TypingLoader } from '../components/layout/Loaders';
 
 const Chat = ({ chatId, user }) => {
   const socket = getSocket();
@@ -92,7 +92,7 @@ const Chat = ({ chatId, user }) => {
 
     if (!message.trim()) return;
 
-    // Emitting the message to the server 
+    // Emitting the message to the server
     socket.emit(NEW_MESSAGE, { chatId, members, message });
     setMessage("");
   };
@@ -185,11 +185,12 @@ const Chat = ({ chatId, user }) => {
         boxSizing={"border-box"}
         padding={"1rem"}
         spacing={"1rem"}
-        bgcolor={blue}
+        //bgcolor={blue}
         height={"90%"}
         sx={{
           overflowX:"hidden",
           overflowY:"auto",
+          backgroundImage: blue
         }}
       >
         {allMessages.map((i) => (

@@ -14,10 +14,23 @@ import { blue } from '../../constants/color';
 import { useInputValidation } from '6pp';
 import { Navigate } from 'react-router-dom';
 import { adminLogin, getAdmin } from "../../redux/thunks/admin";
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import InputAdornment from '@mui/material/InputAdornment';
+import FormControl from '@mui/material/FormControl';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 const AdminLogin = () => {
 
     const { isAdmin } = useSelector((state) => state.auth);
+    const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
 
     const dispatch = useDispatch();
 
@@ -69,7 +82,33 @@ const AdminLogin = () => {
                     onSubmit={submitHandler}
                 >
 
-                    <TextField 
+                    <FormControl 
+                        variant="outlined"
+                        required
+                        fullWidth
+                    >
+                        <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+                        <OutlinedInput
+                            id="outlined-adornment-password"
+                            type={showPassword ? 'text' : 'password'}
+                            endAdornment={
+                            <InputAdornment position="end">
+                                <IconButton
+                                aria-label="toggle password visibility"
+                                onClick={handleClickShowPassword}
+                                onMouseDown={handleMouseDownPassword}
+                                edge="end"
+                                >
+                                {showPassword ? <VisibilityOff /> : <Visibility />}
+                                </IconButton>
+                            </InputAdornment>
+                            }
+                            label="Password"
+                            value={secretKey.value}
+                            onChange={secretKey.changeHandler}
+                        />
+                    </FormControl>
+                    {/* <TextField 
                         required
                         fullWidth
                         type='password'
@@ -78,7 +117,7 @@ const AdminLogin = () => {
                         variant='outlined'
                         value={secretKey.value}
                         onChange={secretKey.changeHandler}
-                    />
+                    /> */}
 
                     <Button
                         sx={{

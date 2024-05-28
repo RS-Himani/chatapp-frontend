@@ -10,7 +10,7 @@ import { Backdrop, Box, Button, CircularProgress, Drawer, Grid, IconButton, Stac
 } from "@mui/material";
 import React, { Suspense, lazy, memo, useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { LayoutLoader } from "../components/layout/loaders";
+import { LayoutLoader } from "../components/layout/Loaders";
 import AvatarCard from "../components/shared/AvatarCard";
 import { Link } from "../components/styles/StyledComponents";
 import {  blue, matBlack } from "../constants/color";

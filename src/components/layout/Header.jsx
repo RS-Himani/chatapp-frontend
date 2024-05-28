@@ -62,6 +62,7 @@ const Header = () => {
           });
           dispatch(userNotExists());
           toast.success(data.message);
+          //localStorage.removeItem("userToken");
         } catch (error) {
           toast.error(error?.response?.data?.message || "Something went wrong");
         }
